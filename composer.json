@@ -1,0 +1,12 @@
+{
+    "name": "samrap/laravel-validation",
+    "description": "Enhanced validation for request input in Laravel.",
+    "keywords": ["laravel", "validation", "requests"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sam Rapaport",
+            "email": "rapaport.sam7@gmail.com"
+        }
+    ]
+}
