@@ -1,0 +1,15 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceValidation\Validator;
+
+class DummyClass extends Validator
+{
+    /**
+     * The validation rules.
+     *
+     * @var array
+     */
+    protected $rules = [];
+}

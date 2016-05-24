@@ -17,7 +17,8 @@
     "require": {
         "illuminate/support": "~5.1",
         "illuminate/validation": "^5.2",
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^4.8",
+        "illuminate/console": "^5.2"
     },
     "require-dev": {
         "mockery/mockery": "^0.9.4"
