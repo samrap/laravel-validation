@@ -14,7 +14,7 @@ class ValidationServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../app/' => app_path()
+            __DIR__.'/../app/' => app_path(),
         ], 'app');
     }
 
@@ -23,7 +23,8 @@ class ValidationServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->commands([
             'Samrap\Validation\Commands\ValidatorMakeCommand',
         ]);
