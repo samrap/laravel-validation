@@ -24,6 +24,8 @@ class ValidationServiceProvider extends ServiceProvider
      * @return void
      */
     public function register() {
-        //
+        $this->commands([
+            'Samrap\Validation\Commands\ValidatorMakeCommand',
+        ]);
     }
 }
