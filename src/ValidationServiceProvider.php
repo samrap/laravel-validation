@@ -15,6 +15,15 @@ class ValidationServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../app/' => app_path()
-        ], 'application');
+        ], 'app');
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register() {
+        //
     }
 }
