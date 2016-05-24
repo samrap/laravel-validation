@@ -14,8 +14,7 @@ class ValidationServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../app/',
-            app_path()
-        ]);
+            __DIR__.'/../app/' => app_path()
+        ], 'application');
     }
 }
