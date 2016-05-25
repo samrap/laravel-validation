@@ -1,4 +1,4 @@
-# SamRap Laravel Validation
+# Laravel Validation
 
 [![StyleCI](https://styleci.io/repos/59241241/shield)](https://styleci.io/repos/59241241)
 [![Build Status](https://travis-ci.org/samrap/laravel-validation.svg?branch=master)](https://travis-ci.org/samrap/laravel-validation)
