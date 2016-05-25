@@ -1,7 +1,6 @@
 <?php
 
 use Mockery as m;
-
 use Samrap\Validation\Validator;
 
 class ValidatorTest extends PHPUnit_Framework_TestCase
