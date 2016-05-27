@@ -36,6 +36,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $factory->shouldReceive('make')->andReturn($laravelValidator);
 
         $validator = new Validator($factory);
+        $validator->rules = ['foo' => 'bar'];
 
         return $validator;
     }
