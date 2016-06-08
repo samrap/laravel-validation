@@ -41,13 +41,24 @@ class Validator
     }
 
     /**
-     * Get the validator's rules if they exist.
+     * Get the validator's rules.
      *
      * @return array
      */
     public function getRules()
     {
-        return (property_exists($this, 'rules')) ? $this->rules : [];
+        $trace = debug_backtrace();
+        $caller = $trace[1];
+
+        if ($caller['function'] == 'store' && property_exists($this, 'storing')) {
+            return $this->storing;
+        }
+
+        if ($caller['function'] == 'update' && property_exists($this, 'updating')) {
+            return $this->updating;
+        }
+
+        return $this->rules;
     }
 
     /**
