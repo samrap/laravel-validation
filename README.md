@@ -124,7 +124,7 @@ In this case, we are adding a rule for a `name` field, which will be merged with
 ### Additional Features
 ---
 ###### Dynamic Rules
-Since version 1.1, it is possible to have separate rules for updating and storing models, with the required `rules` property as a fallback. Simply define a `storing` and/or `updating` property on the validator in addition to the fallback `$rules`, and Laravel Validation does the rest!
+Since version 1.1, it is possible to have separate rules for updating and storing models, with the required `rules` property as a fallback. Simply define a `storing` and/or `updating` property on the validator in addition to the fallback `rules`, and Laravel Validation does the rest!
 
 ```
 class UserValidator extends Validator
@@ -150,6 +150,8 @@ class UserValidator extends Validator
 ```
 
 Upon validating, Laravel Validation checks if the controller method's name is a RESTful `update` or `store`. If it is one of these methods and its related `updating` or `storing` property exists, those rules will be used instead.
+
+Note: The `rules` property is still **required** as a fallback. The `updating` and `storing` properties are always optional.
 
 ### Contributing
 ---
