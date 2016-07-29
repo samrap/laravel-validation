@@ -27,7 +27,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($errors, $validator->validate($rules)->errors());
     }
 
-    public function testValidatorPassesWithCustomProperty()
+    public function testValidatorUsesCustomPropertyOnce()
     {
         $validator = $this->getValidator();
         $customRules = ['bar' => 'baz'];
