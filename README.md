@@ -11,7 +11,7 @@
 ---
 Laravel Validation is a bare-bones, minimal validation package for the Laravel framework. Its only purpose is to provide a way to separate your request validation rules from your models and controllers, neither of which should contain such information. It accomplishes this by essentially acting as a broker between your validation rules and a Laravel validator instance.
 
-```
+```php
 public function store(Request $request, ModelValidator $validator)
 {
     $validator = $validator->validate($request->all());
@@ -29,7 +29,9 @@ Install via Composer:
 
 Then add the service provider to your providers array in `config/app.php`:
 
-`Samrap\Validation\ValidationServiceProvider::class`
+```php
+Samrap\Validation\ValidationServiceProvider::class
+```
 
 Finally, the base `Validator` class needs to be published to a new `app/Validation` directory. This can be done using the `vendor:publish` command:
 
@@ -45,9 +47,7 @@ Laravel Validation provides a useful artisan command for generating new validato
 
 This will create a new `UserValidator` class in the `app/Validation` directory that looks like this:
 
-```
-<?php
-
+```php
 namespace App\Validation;
 
 use App\Validation\Validator;
@@ -65,7 +65,7 @@ class UserValidator extends Validator
 
 Each validator has a `rules` property which (suitably) houses all the validation rules for the intended model. Let's define some basic rules for this validator:
 
-```
+```php
 /**
  * The validation rules.
  *
@@ -81,11 +81,13 @@ Great! We now have a validator class named `UserValidator` with the rules we int
 
 First, we will want to import this class into our controller:
 
-`use App\Validation\UserValidator`
+```php
+use App\Validation\UserValidator
+```
 
 Now, let's validate a POST request for the controller's `store` method:
 
-```
+```php
 public function store(Request $request, UserValidator $validator)
 {
     $validator = $validator->validate($request->all());
@@ -99,7 +101,9 @@ A few things are going on here. Let's go line by line.
 
 First, in addition to the current request, we are type hinting an instance of our `UserValidator` as it has dependencies that should be resolved via the service container:
 
-`public function store(Request $request, UserValidator $validator)`
+```php
+public function store(Request $request, UserValidator $validator)
+```
 
 Our validator inherits a `validate` method from its parent class, `Samrap\Validation\Validator`, which we can use to obtain an `Illuminate\Validation\Validator` instance. Our `validate` method takes the same arguments as if we were [manually creating a validator](https://laravel.com/docs/5.2/validation#manually-creating-validators) using Laravel's `Validator::make` method (more on this later). So, we will simply pass the request input to the `$validator->validate()` method:
 
@@ -113,7 +117,7 @@ That's it! That is all you need to do to validate your requests. The validator w
 
 Of course, there may be times in a certain request when you need to add to or override some of the rules you defined in your validator. No worries, it's super easy!
 
-```
+```php
 $validator = $validator->validate($request->all(), [
     'name' => 'string|required',
 ]);
@@ -126,7 +130,7 @@ In this case, we are adding a rule for a `name` field, which will be merged with
 ###### Dynamic Rules
 Since version 1.1, it is possible to have separate rules for updating and storing models, with the required `rules` property as a fallback. Simply define a `storing` and/or `updating` property on the validator in addition to the fallback `rules`, and Laravel Validation does the rest!
 
-```
+```php
 class UserValidator extends Validator
 {
     /**
