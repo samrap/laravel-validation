@@ -45,6 +45,6 @@ class ValidatorMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Validation';
+        return $rootNamespace.'\Validators';
     }
 }

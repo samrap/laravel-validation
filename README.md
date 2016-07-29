@@ -31,26 +31,26 @@ Then add the service provider to your providers array in `config/app.php`:
 
 `Samrap\Validation\ValidationServiceProvider::class`
 
-Finally, the base `Validator` class needs to be published to a new `app/Validation` directory. This can be done using the `vendor:publish` command:
+Finally, the base `Validator` class needs to be published to a new `app/Validators` directory. This can be done using the `vendor:publish` command:
 
 `php artisan vendor:publish`
 
 ### Usage
 ---
-All validators reside in the `app/Validation` directory and extend the abstract class `App\Validation\Validator`. There should be one validator class per model. For example, the validator for a `User` model could be called `UserValidator`.
+All validators reside in the `app/Validators` directory and extend the abstract class `App\Validators\Validator`. There should be one validator class per model. For example, the validator for a `User` model could be called `UserValidator`.
 
 Laravel Validation provides a useful artisan command for generating new validators on the fly. Let's create a validator for our `User` model and define some rules:
 
 `php artisan make:validator UserValidator`
 
-This will create a new `UserValidator` class in the `app/Validation` directory that looks like this:
+This will create a new `UserValidator` class in the `app/Validators` directory that looks like this:
 
 ```
 <?php
 
-namespace App\Validation;
+namespace App\Validators;
 
-use App\Validation\Validator;
+use App\Validators\Validator;
 
 class UserValidator extends Validator
 {
@@ -81,7 +81,7 @@ Great! We now have a validator class named `UserValidator` with the rules we int
 
 First, we will want to import this class into our controller:
 
-`use App\Validation\UserValidator`
+`use App\Validators\UserValidator`
 
 Now, let's validate a POST request for the controller's `store` method:
 
@@ -126,7 +126,7 @@ In this case, we are adding a rule for a `name` field, which will be merged with
 ##### Multiple Rulesets
 Laravel Validation expects a `rules` property on your validator class, but it is possible to define additional properties and use those in specific cases. You may have different requirements when updating a record vs storing, or have unique rules if a user is of a specific role.
 
-Let's define an `updating` property on the `App\Validation\UserValidator` class with specific rules for updating a user:
+Let's define an `updating` property on the `App\Validators\UserValidator` class with specific rules for updating a user:
 
 ```
 protected $updating = [

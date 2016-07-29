@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validation;
+namespace App\Validators;
 
 use Samrap\Validation\Validator as BaseValidator;
 
