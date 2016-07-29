@@ -121,6 +121,33 @@ $validator = $validator->validate($request->all(), [
 
 In this case, we are adding a rule for a `name` field, which will be merged with our rules defined in the `UserValidator`. By default, any rules passed explicitly to the `validate` method will override the rules defined in the validator if they exist.
 
+### Additional Features
+---
+##### Multiple Rulesets
+Laravel Validation expects a `rules` property on your validator class, but it is possible to define additional properties and use those in specific cases. You may have different requirements when updating a record vs storing, or have unique rules if a user is of a specific role.
+
+Let's define an `updating` property on the `App\Validation\UserValidator` class with specific rules for updating a user:
+
+```
+protected $updating = [
+    // rules...
+];
+```
+
+Then in our controller's `update` method, we can call the validator's `using` method and pass the name of the property we want to validate with:
+
+```
+public function update(Request $request, UserValidator $validator)
+{
+    $validator = $validator->using('updating')->validate($request->all());
+    $this->validateWith($validator, $request);
+
+    ...
+}
+```
+
+By calling the `using` method before `validate`, we are telling the validator to use the `updating` property instead of the default `rules`.
+
 ### Contributing
 ---
 Contributions are more than welcome! You can submit feature requests to [rapaport.sam7@gmail.com](mailto:rapaport.sam7@gmail.com), or fork the repo yourself!

@@ -27,6 +27,16 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($errors, $validator->validate($rules)->errors());
     }
 
+    public function testValidatorPassesWithCustomProperty()
+    {
+        $validator = $this->getValidator();
+        $customRules = ['bar' => 'baz'];
+        $validator->custom = $customRules;
+
+        $this->assertEquals($customRules, $validator->using('custom')->getRules());
+        $this->assertEquals($validator->rules, $validator->getRules());
+    }
+
     protected function getValidator($errors = [])
     {
         $laravelValidator = m::mock('\Illuminate\Validation\Validator');

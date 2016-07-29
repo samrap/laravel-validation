@@ -21,6 +21,13 @@ class Validator
     protected $errors;
 
     /**
+     * The validation rules to override the default rules on the next call.
+     *
+     * @var array
+     */
+    protected $next = [];
+
+    /**
      * Create a new instance of \Samrap\Validation\Validator.
      *
      * @param \Illuminate\Validation\Factory $factory
@@ -47,7 +54,33 @@ class Validator
      */
     public function getRules()
     {
+        if (count($this->next)) {
+            $rules = $this->next;
+            $this->next = [];
+
+            return $rules;
+        }
+
         return $this->rules;
+    }
+
+    /**
+     * Use a property on this class other than the default for the next validation
+     * call. This is useful for instances when you need a separate set of
+     * validation rules for a certain operation, such as updating.
+     *
+     * @param  string $property
+     * @return \Samrap\Validation\Validator
+     */
+    public function using($property)
+    {
+        if (property_exists($this, $property)) {
+            $this->next = $this->$property;
+        } else {
+            throw new Exception('The property '.$property.' does not exist on this validator.');
+        }
+
+        return $this;
     }
 
     /**
