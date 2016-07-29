@@ -121,38 +121,6 @@ $validator = $validator->validate($request->all(), [
 
 In this case, we are adding a rule for a `name` field, which will be merged with our rules defined in the `UserValidator`. By default, any rules passed explicitly to the `validate` method will override the rules defined in the validator if they exist.
 
-### Additional Features
----
-###### Dynamic Rules
-Since version 1.1, it is possible to have separate rules for updating and storing models, with the required `rules` property as a fallback. Simply define a `storing` and/or `updating` property on the validator in addition to the fallback `rules`, and Laravel Validation does the rest!
-
-```
-class UserValidator extends Validator
-{
-    /**
-     * The validation rules.
-     *
-     * @var array
-     */
-    protected $rules = [
-        'password' => 'min:8|required',
-    ];
-
-    /**
-     * Validation rules when updating a model.
-     *
-     * @var array
-     */
-    protected $updating = [
-        'password' => 'min:8',
-    ];
-}
-```
-
-Upon validating, Laravel Validation checks if the controller method's name is a RESTful `update` or `store`. If it is one of these methods and its related `updating` or `storing` property exists, those rules will be used instead.
-
-Note: The `rules` property is still **required** as a fallback. The `updating` and `storing` properties are always optional.
-
 ### Contributing
 ---
 Contributions are more than welcome! You can submit feature requests to [rapaport.sam7@gmail.com](mailto:rapaport.sam7@gmail.com), or fork the repo yourself!

@@ -47,17 +47,6 @@ class Validator
      */
     public function getRules()
     {
-        $trace = debug_backtrace();
-        $caller = $trace[1];
-
-        if ($caller['function'] == 'store' && property_exists($this, 'storing')) {
-            return $this->storing;
-        }
-
-        if ($caller['function'] == 'update' && property_exists($this, 'updating')) {
-            return $this->updating;
-        }
-
         return $this->rules;
     }
 
