@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use DummyRootNamespaceValidation\Validator;
+use DummyRootNamespaceValidators\Validator;
 
 class DummyClass extends Validator
 {
