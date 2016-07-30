@@ -11,7 +11,7 @@
 ---
 Laravel Validation is a bare-bones, minimal validation package for the Laravel framework. Its only purpose is to provide a way to separate your request validation rules from your models and controllers, neither of which should contain such information. It accomplishes this by essentially acting as a broker between your validation rules and a Laravel validator instance.
 
-```
+```php
 public function store(Request $request, ModelValidator $validator)
 {
     $validator = $validator->validate($request->all());
@@ -21,6 +21,10 @@ public function store(Request $request, ModelValidator $validator)
 }
 ```
 
+### But I'm Using Form Requests
+---
+If you're using [Form Requests](https://laravel.com/docs/5.2/validation#form-request-validation), then this package won't be of use. If you prefer to explicitly validate requests from within your controllers but want to keep your validation rules separate, then give Laravel Validation a try!
+
 ### Installation
 ---
 Install via Composer:
@@ -29,7 +33,9 @@ Install via Composer:
 
 Then add the service provider to your providers array in `config/app.php`:
 
-`Samrap\Validation\ValidationServiceProvider::class`
+```php
+Samrap\Validation\ValidationServiceProvider::class
+```
 
 Finally, the base `Validator` class needs to be published to a new `app/Validators` directory. This can be done using the `vendor:publish` command:
 
@@ -45,9 +51,7 @@ Laravel Validation provides a useful artisan command for generating new validato
 
 This will create a new `UserValidator` class in the `app/Validators` directory that looks like this:
 
-```
-<?php
-
+```php
 namespace App\Validators;
 
 use App\Validators\Validator;
@@ -65,7 +69,7 @@ class UserValidator extends Validator
 
 Each validator has a `rules` property which (suitably) houses all the validation rules for the intended model. Let's define some basic rules for this validator:
 
-```
+```php
 /**
  * The validation rules.
  *
@@ -85,7 +89,7 @@ First, we will want to import this class into our controller:
 
 Now, let's validate a POST request for the controller's `store` method:
 
-```
+```php
 public function store(Request $request, UserValidator $validator)
 {
     $validator = $validator->validate($request->all());
@@ -99,21 +103,27 @@ A few things are going on here. Let's go line by line.
 
 First, in addition to the current request, we are type hinting an instance of our `UserValidator` as it has dependencies that should be resolved via the service container:
 
-`public function store(Request $request, UserValidator $validator)`
+```php
+public function store(Request $request, UserValidator $validator)
+```
 
 Our validator inherits a `validate` method from its parent class, `Samrap\Validation\Validator`, which we can use to obtain an `Illuminate\Validation\Validator` instance. Our `validate` method takes the same arguments as if we were [manually creating a validator](https://laravel.com/docs/5.2/validation#manually-creating-validators) using Laravel's `Validator::make` method (more on this later). So, we will simply pass the request input to the `$validator->validate()` method:
 
-`$validator = $validator->validate($request->all());`
+```php
+$validator = $validator->validate($request->all());
+```
 
 Finally, we can make use of Laravel's `ValidatesRequests` trait, included by default on all controllers. It provides us with a `validateWith` method, which expects a validator instance and the request and will handle redirection if the validation fails:
 
-`$this->validateWith($validator, $request);`
+```
+$this->validateWith($validator, $request);
+```
 
 That's it! That is all you need to do to validate your requests. The validator will use the rules defined in your `UserValidator` to validate the request, in two lines of code in your controller. Obviously, this cleans up your controllers dramatically as the amount of validation you need increases.
 
 Of course, there may be times in a certain request when you need to add to or override some of the rules you defined in your validator. No worries, it's super easy!
 
-```
+```php
 $validator = $validator->validate($request->all(), [
     'name' => 'string|required',
 ]);
@@ -128,7 +138,7 @@ Laravel Validation expects a `rules` property on your validator class, but it is
 
 Let's define an `updating` property on the `App\Validators\UserValidator` class with specific rules for updating a user:
 
-```
+```php
 protected $updating = [
     // rules...
 ];
@@ -136,7 +146,7 @@ protected $updating = [
 
 Then in our controller's `update` method, we can call the validator's `using` method and pass the name of the property we want to validate with:
 
-```
+```php
 public function update(Request $request, UserValidator $validator)
 {
     $validator = $validator->using('updating')->validate($request->all());
