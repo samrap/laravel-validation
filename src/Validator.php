@@ -2,6 +2,7 @@
 
 namespace Samrap\Validation;
 
+use Exception;
 use Illuminate\Validation\Factory as ValidatorFactory;
 
 class Validator
