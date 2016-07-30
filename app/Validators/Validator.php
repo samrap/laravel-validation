@@ -4,7 +4,7 @@ namespace App\Validators;
 
 use Samrap\Validation\Validator as BaseValidator;
 
-abstract class Validator extends BaseValidator
+class Validator extends BaseValidator
 {
     //
 }
