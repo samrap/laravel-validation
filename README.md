@@ -43,7 +43,7 @@ Finally, the base `Validator` class needs to be published to a new `app/Validato
 
 ### Usage
 ---
-All validators reside in the `app/Validators` directory and extend the abstract class `App\Validators\Validator`. There should be one validator class per model. For example, the validator for a `User` model could be called `UserValidator`.
+All validators reside in the `app/Validators` directory and extend the class `App\Validators\Validator`. There should be one validator class per model. For example, the validator for a `User` model could be called `UserValidator`.
 
 Laravel Validation provides a useful artisan command for generating new validators on the fly. Let's create a validator for our `User` model and define some rules:
 
