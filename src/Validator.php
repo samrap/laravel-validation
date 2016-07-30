@@ -67,7 +67,7 @@ class Validator
 
     /**
      * Use a property on this class other than the default for the next validation
-     * call. This is useful for instances when you need a separate set of
+     * rules. This is useful for instances when you need a separate set of
      * validation rules for a certain operation, such as updating.
      *
      * @param  string $property
