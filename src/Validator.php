@@ -78,7 +78,7 @@ class Validator
         if (property_exists($this, $property)) {
             $this->next = $this->$property;
         } else {
-            throw new Exception('The property '.$property.' does not exist on this validator.');
+            throw new Exception('The property ['.$property.'] does not exist on this validator.');
         }
 
         return $this;
