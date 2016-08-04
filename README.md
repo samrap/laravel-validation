@@ -39,7 +39,7 @@ Samrap\Validation\ValidationServiceProvider::class
 
 Finally, the base `Validator` class needs to be published to a new `app/Validators` directory. This can be done using the `vendor:publish` command:
 
-`php artisan vendor:publish`
+`php artisan vendor:publish --provider="Samrap\Validation\ValidationServiceProvider"`
 
 ### Usage
 ---
